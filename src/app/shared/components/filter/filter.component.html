@@ -1,0 +1,23 @@
+<div class="filter-container"> 
+  <div *ngFor="let column of columns" class="filter-item">
+    <label>{{ column.displayName }}</label> 
+    <input
+      *ngIf="column.inputType === 'text'" type="text" class="form-control"
+      [(ngModel)]="filters[column.fieldName]" 
+    /> 
+    <div *ngIf="column.inputType === 'dropdown'" class="dropdown-filter">
+      <div *ngFor="let option of column.options" class="form-check">
+        <input type="checkbox"
+          [value]="option"
+          class="form-check-input"
+          (change)="updateDropdownFilter(column.fieldName, option, $event)"
+        />
+        <label class="form-check-label">{{ option }}</label>
+      </div>
+    </div>
+  </div> 
+  <div class="filter-actions">
+    <button class="btn btn-primary" (click)="applyFilter()">Apply</button>
+    <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+  </div>
+</div>

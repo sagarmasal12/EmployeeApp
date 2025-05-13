@@ -1,0 +1,52 @@
+<div class="hero-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="search-box p-4">
+                    <h2 class="text-center mb-4">
+                        <i class="fa fa-ticket me-2"></i>Book Your Bus Ticket
+                    </h2>
+                    <form  >
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fa fa-map-marker me-1"></i>From
+                                </label>
+                                <select class="form-select" name="fromLocationId" [(ngModel)]="searchObj.fromLocationId">
+                                    <option value="">Select From Location</option>
+                                    @for (item of locationList; track $index) {
+                                        <option [value]="item.locationId"> {{item.locationName}}</option>
+                                    }
+                                    
+                                </select> 
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fa fa-map-marker me-1"></i>To
+                                </label>
+                                <select class="form-select" name="toLocationId"  [(ngModel)]="searchObj.toLocationId">
+                                    <option value="">Select To Location</option>
+                                    @for (item of locationList; track $index) {
+                                        <option [value]="item.locationId"> {{item.locationName}}</option>
+                                    }
+                                    
+                                </select> 
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fa fa-calendar-check-o me-1"></i>Date of Journey
+                                </label>
+                                <input type="date" name="date"  [(ngModel)]="searchObj.date" class="form-control" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="button" (click)="searchBus()" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-search-plus me-2"></i>Search Buses
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

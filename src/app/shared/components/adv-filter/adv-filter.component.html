@@ -1,0 +1,36 @@
+
+<div class="card">
+    <div class="card-header bg-secondary">
+        Advance Filter
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-5">
+                @for (item of columnList; track $index) {
+                    <div [class]="currentSelectedItem.fieldName ==  item.fieldName ? 'bg-primary':'bg-secondary'" (click)="onColumnSelect(item)" style="padding: 5px; margin: 5px;">
+                        {{item.header}}
+                    </div>
+                }
+            </div>
+            <div class="col-2">
+                {{filterObj| json}}
+            </div>
+            <div class="col-5">
+                @if(currentSelectedItem.inputType == 'text') {
+                    <input type="text" (change)="updateFilter(currentSelectedItem.fieldName,$event)" class="form-control" [placeholder]="'Search by'+currentSelectedItem.fieldName"/>
+                } @else if (currentSelectedItem.inputType == 'dropdown') {
+                    <select (change)="updateFilter(currentSelectedItem.fieldName,$event)">
+                        @for (item of currentSelectedItem.options; track $index) {
+                            <option > {{item}}</option>
+                        }
+                    </select>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-end">
+                <button class="btn btn-success" (click)="onApplyFilter()">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+</div>

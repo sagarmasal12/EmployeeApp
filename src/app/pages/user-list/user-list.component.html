@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-end">
+            <button class="btn btn-success">Adv Filter</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <app-adv-filter [columnList]="columnArray" [gridData]="userData" (onFilter)="getFiltereData($event)"></app-adv-filter>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th style="width:30px;">#</th>
+                        <th>User Name</th>
+                        <th>Password</th>
+                        <th>Status</th>
+                        <th>Gender</th>
+                        <th>City</th>  
+                        <th>Role</th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of filterData; track $index) {
+                        <tr>
+                            <td>{{$index+1}}</td>
+                            <td>{{item.userName}}</td>
+                            <td>{{item.password}}</td>
+                            <td>{{item.isActive ? 'Active': 'De-Active'}}</td>
+                            <td>{{item.gender}}</td>
+                            <td>{{item.city}}</td> 
+                            <td>{{item.role}}</td> 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+export class EmployeeComponent implements OnInit {
+  columns: ColumnConfig[] = [
+    { fieldName: 'employeeName', displayName: 'Name', inputType: 'text' },
+    { fieldName: 'contactNo', displayName: 'Email', inputType: 'text' },
+    { fieldName: 'gender', displayName: 'gender', inputType: 'dropdown', options: ['Male', 'Female' ]},
+  ];
+
+updateFilteredData(filteredData: any[]) {
+    this.filteredData = filteredData;
+  }
+
+ <app-filter
+                    *ngIf="showFilter"
+                    [columns]="columns"
+                    [gridData]="employeeList"
+                    (filteredData)="updateFilteredData($event)"
+                  ></app-filter>
+
+************************
+
+<div class="filter-container">
+  <div *ngFor="let column of columns" class="filter-item">
+    <label>{{ column.displayName }}</label> 
+    <input
+      *ngIf="column.inputType === 'text'" type="text" class="form-control"
+      [(ngModel)]="filters[column.fieldName]" 
+    /> 
+    <div *ngIf="column.inputType === 'dropdown'" class="dropdown-filter">
+      <div *ngFor="let option of column.options" class="form-check">
+        <input type="checkbox"
+          [value]="option"
+          class="form-check-input"
+          (change)="updateDropdownFilter(column.fieldName, option, $event)"
+        />
+        <label class="form-check-label">{{ option }}</label>
+      </div>
+    </div>
+  </div> 
+  <div class="filter-actions">
+    <button class="btn btn-primary" (click)="applyFilter()">Apply</button>
+    <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+  </div>
+</div>
+
+
+  @Input() columns: ColumnConfig[] = [];
+  @Input() gridData: any[] = []; // The data to be filtered
+  @Output() filteredData = new EventEmitter<any[]>(); // Emit filtered data 
+  filters: { [key: string]: any } = {}; // Keeps track of selected filters
+
+  applyFilter() {
+    debugger;
+    let filtered = [...this.gridData]; // Start with the full grid data
+    debugger;
+    for (const fieldName of Object.keys(this.filters)) {
+      const filterValue = this.filters[fieldName];
+
+      if (Array.isArray(filterValue)) {
+        // For multi-select dropdowns
+        filtered = filtered.filter(item => filterValue.includes(item[fieldName]));
+      } else if (typeof filterValue === 'string' && filterValue.trim() !== '') {
+        // For text inputs
+        filtered = filtered.filter(item =>
+          item[fieldName]?.toString().toLowerCase().includes(filterValue.toLowerCase())
+        );
+      }
+    }
+    this.filteredData.emit(filtered); // Emit the filtered data to the parent
+  }
+
+  // Reset all filters
+  resetFilter() {
+    this.filters = {};
+    this.filteredData.emit([...this.gridData]); // Emit original data
+  }
+
+  updateDropdownFilter(fieldName: string, option: string, event: any) {
+    debugger;
+    if (!this.filters[fieldName]) {
+      this.filters[fieldName] = [];
+    }
+  
+    if (event.target.checked) {
+      this.filters[fieldName].push(option);
+    } else {
+      this.filters[fieldName] = this.filters[fieldName].filter((value: string) => value !== option);
+    }
+  }
+}

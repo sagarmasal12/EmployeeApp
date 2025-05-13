@@ -1,0 +1,24 @@
+ 
+ <div class="row">
+ 
+    @for (item of formElements; track $index) {
+        <div class="col-6">
+            <label for="">{{item.label}}</label>
+            @if(item.inputType == 'text') {
+                <input type="text" [(ngModel)]="formObject[item.fieldName]" class="form-control"/>
+            } @else if (item.inputType == 'checkbox') {
+                <input type="checkbox" [(ngModel)]="formObject[item.fieldName]"  />
+            }
+
+        </div>
+    }
+
+    <div class="row pt-3">
+        <div class="col-6 text-center">
+            <button class="btn btn-primary" (click)="onSave()">Reset</button>
+        </div>
+        <div class="col-6 text-center">
+            <button class="btn btn-success" (click)="onSave()">Save</button>
+        </div>
+    </div>
+ </div>

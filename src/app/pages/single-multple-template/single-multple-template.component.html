@@ -1,0 +1,187 @@
+<div class="container-fluid">
+    <div class="mt-2 p-3 bg-primary text-white rounded text-center">
+        <h1>Single With Multiple Entity</h1>
+        <h5>Employee With Multple Family Relative Scenario </h5>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <div class="row">
+                        <div class="col-6"> New Employee</div>
+                        <div class="col-6 text-end">
+                            <button class='btn btn-sm btn-primary'>List</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label><b>Name</b></label>
+                                        <input type="text"  [(ngModel)]="employeeObj.Name"  class="form-control"  placeholder="Enter Name" />
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label><b>Contact No</b></label>
+                                        <input type="text" [(ngModel)]="employeeObj.ContactNo"  class="form-control"  placeholder="Enter Contact No" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label><b>Email</b></label>
+                                        <input type="text" [(ngModel)]="employeeObj.Email"  class="form-control"   placeholder="Enter Email" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label><b>City</b></label>
+                                        <input type="text" [(ngModel)]="employeeObj.City"  class="form-control"  placeholder="Enter City" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label><b>State</b></label>
+                                        <input type="text" [(ngModel)]="employeeObj.State"  class="form-control"   placeholder="Enter State" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label><b>Pincode</b></label>
+                                        <input type="text" [(ngModel)]="employeeObj.PinCode"  class="form-control"   placeholder="Enter Pincode" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label><b>Dasignation</b></label>
+                                        <select [(ngModel)]="employeeObj.Designation"  class="form-control" >
+                                            <option value="">Select</option>
+                                            <option value="Jr Developer">Jr Developer</option>
+                                            <option value="Sr Developer">Sr Developer</option>
+                                            <option value="Team Leader">Team Leader</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-6 text-end">
+                                        <button class="btn text-white btn-sm bg-secondary">Reset</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button (click)="saveEmnployee()"  class="btn text-white btn-sm bg-success">
+                                            Save Employee
+                                        </button>
+
+                                        <button class="btn btn-sm bg-secondary">
+                                            Update Employee
+                                        </button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5"  >
+                                
+                                    <div class="row"   >
+                                        <!-- <div class="col-4">
+                                            <label><b>Name</b></label>
+                                            <input type="text"  [(ngModel)]="familyObj.Name" placeholder="Relative Name" class="form-control"  />
+                                        </div>
+                                        <div class="col-3">
+                                            <label><b>Relation</b></label>
+                                            <select   [(ngModel)]="familyObj.Relation"  class="form-control" >
+                                                <option value="">Select</option>
+                                                <option value="Mother">Mother</option>
+                                                <option value="Father">Father</option>
+                                                <option value="Sister">Sister</option>
+                                                <option value="Brother">Brother</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label><b>Age</b></label>
+                                            <input  type="text" placeholder="Age" [(ngModel)]="familyObj.Age"  class="form-control"  />
+                                        </div>  -->
+                                        <div class="col-1 mt-4 text-end">
+                                            <button class="btn btn-sm bg-primary" (click)="onAdd()" >Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                         
+                                                        <th>Nameo</th>
+                                                        <th>Relation</th>
+                                                        <th>Age</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (item of employeeObj.MockEmpRelatives; track $index) {
+                                                        <tr>
+                                                            <td>
+                                                                <input type="text" class="form-control" [(ngModel)]="item.Name">
+                                                               </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" [(ngModel)]="item.Relation">
+                                                                </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" [(ngModel)]="item.Age">
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                 
+                              
+                               
+                                <div class="row">
+                                   
+                                </div>
+                                
+                            </div>
+                        </div> 
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row pt-2'>
+        <div class='col-12'>
+            <div class='card'>
+                <div class='card-header bg-success'>
+                    <div class="row">
+                        <div class="col-6"> Employee List</div>
+                        <div class="col-6 text-end">
+                            <button class='btn btn-sm btn-primary' onClick={changeView}>New Employee</button>
+                        </div>
+                    </div>
+                </div>
+                <div class='card-body'>
+                    <table class='table table-bordered'>
+                        <thead>
+                            <tr>
+                                <th>Sr</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Designation</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td>
+                                    <button class='btn btn-sm btn-primary'>Edit</button>
+                                    <button class='btn btn-sm btn-danger mx-2'>Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
